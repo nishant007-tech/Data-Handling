@@ -2,6 +2,7 @@ const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 console.log(ffmpegPath);
 const ffmpeg = require("fluent-ffmpeg");
 ffmpeg.setFfmpegPath(ffmpegPath);
+ffmpeg.setFfprobePath("/app/node_modules/@ffprobe-installer/linux-x64/ffprobe");
 
 const { getVideoDurationInSeconds } = require("get-video-duration");
 const fs = require("fs");
@@ -72,7 +73,6 @@ exports.mergeVideos = async (req, res, next, files) => {
   files.forEach((data) => {
     mergeClips.input(data.videoFIle);
   });
-  console.log(mergeClips);
   mergeClips
     .on("error", function (err) {
       console.log("An error occurred: " + err.message);
