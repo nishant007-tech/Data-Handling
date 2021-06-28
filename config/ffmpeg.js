@@ -72,6 +72,7 @@ exports.mergeVideos = async (req, res, next, files) => {
   files.forEach((data) => {
     mergeClips.input(data.videoFIle);
   });
+  console.log(mergeClips);
   mergeClips
     .on("error", function (err) {
       console.log("An error occurred: " + err.message);
