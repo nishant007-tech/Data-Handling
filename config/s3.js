@@ -13,21 +13,21 @@ const uploadParams = {
   ACL: 'public-read',
 };
 
-exports.uploadFile =  async (file) =>{
-  const myFileName=file.originalname.split(".");
-  const fileType=myFileName[myFileName.length-1]
-  uploadParams.Key=`${uuidv4()}.${fileType}`,
-  uploadParams.Body = file.buffer;
+exports.uploadFile = async (file) => {
+  const myFileName = file.originalname.split(".");
+  const fileType = myFileName[myFileName.length - 1]
+  uploadParams.Key = `${uuidv4()}.${fileType}`,
+    uploadParams.Body = file.buffer;
   let data = await s3Client.upload(uploadParams).promise();
   return data;
 }
 
 
-exports.uploadVideo =  async (file) =>{
-  const myFileName=file.name.split(".");
-  const fileType=myFileName[myFileName.length-1]
-  uploadParams.Key=`${uuidv4()}.${fileType}`,
-  uploadParams.Body = file.data;
+exports.uploadVideo = async (file) => {
+  const myFileName = file.name.split(".");
+  const fileType = myFileName[myFileName.length - 1]
+  uploadParams.Key = `${uuidv4()}.${fileType}`,
+    uploadParams.Body = file.data;
   console.log(`File is uploadding`)
   let data = await s3Client.upload(uploadParams).promise();
   return data;

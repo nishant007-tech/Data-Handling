@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 
 const chalk = require("chalk");
 require("dotenv").config();
-const PORT = process.env.PORT || 5000;
 const middlewaresConfig = require("./config/middleware");
 middlewaresConfig(app);
 
@@ -48,21 +47,10 @@ if (process.env.NODE_ENV == "production") {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
 }
-mongoose
-  .connect(constants.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
-  .then((result) => {
-    console.log(
-      chalk.green.bold(
-        `
-        Yep this is working 🍺
-        App listen on port: ${PORT} 🍕
-        Env: ${process.env.NODE_ENV} 🦄
-      `
-      )
-    );
-    app.listen(PORT);
-  })
-  .catch((err) => {
-    console.log(chalk.red("Cannot run!", err));
-  });
-
+mongoose.connect('mongodb+srv://Piyush123:Piyush123@cluster0.v594s.mongodb.net/movieDB?authSource=admin&replicaSet=atlas-9k6kxk-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true', { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true }, () => {
+  console.log('We Are Connected to DB');
+});
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});
