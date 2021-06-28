@@ -41,8 +41,6 @@ app.response.error = function (message, data, displayMessage, code) {
 };
 
 app.use(movieandvideo);
-
-
 if (process.env.NODE_ENV == "production") {
   app.use(express.static('client/build'))
   const path = require('path')
