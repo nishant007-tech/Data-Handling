@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 
 const chalk = require("chalk");
 require("dotenv").config();
-const constant = require("./config/constants");
-const PORT = constant.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 const middlewaresConfig = require("./config/middleware");
 middlewaresConfig(app);
 
 const movieandvideo = require("./routes/movieandvideo");
 
 const { Response } = require("./models/responce.model");
+const constants = require("./config/constants");
 app.response.unauthorizedUser = function (message, data, displayMessage, code) {
   console.log(chalk.yellow("Unauthorized User"));
   this.status(200).send(
@@ -50,15 +50,14 @@ if (process.env.NODE_ENV == "production") {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
 }
-
 mongoose
-  .connect(constant.MONGODB_URI)
+  .connect(constants.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
   .then((result) => {
     console.log(
       chalk.green.bold(
         `
         Yep this is working 🍺
-        App listen on port: ${constant.PORT} 🍕
+        App listen on port: ${PORT} 🍕
         Env: ${process.env.NODE_ENV} 🦄
       `
       )
