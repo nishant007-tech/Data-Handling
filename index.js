@@ -1,6 +1,6 @@
 const app = require("express")();
 const mongoose = require("mongoose");
-
+const express = require("express");
 const chalk = require("chalk");
 require("dotenv").config();
 const middlewaresConfig = require("./config/middleware");
